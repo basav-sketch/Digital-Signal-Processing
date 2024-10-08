@@ -11,7 +11,7 @@ plt.plot(time,data2)
 plt.xlabel('Time [s]')
 plt.ylabel('Amplitude')
 plt.title('Lab 1 Test 2.wav')
-plt.show()
+#plt.show()
 
 fft_signal = np.fft.fft(data2)
 
