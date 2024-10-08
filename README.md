@@ -1,4 +1,4 @@
-# Digital Signal Processing (DSP) Assignment
+# Digital Signal Processing (DSP) Assignment 1
 
 ## Task Breakdown
 
