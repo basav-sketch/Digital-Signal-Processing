@@ -3,30 +3,23 @@
 ## Task Breakdown
 
 ### Task 1: Audio Signal Analysis
-- Loaded audio samples into Python.
-- Plotted the audio signals in both the time domain (amplitude vs. time) and the frequency domain (frequency vs. amplitude in dB).
+- **Loaded** audio samples into Python.
+- **Plotted** the audio signals in both the time domain (amplitude vs. time) and the frequency domain (frequency vs. amplitude in dB).
 
 ### Task 2: Analyzing the Frequency Spectrum
-#### Fundamental Frequencies
-- **Definition**: The lowest frequency in a signal, typically found in human speech between 85 Hz to 255 Hz.
-- **How to Identify**: The first prominent peak in the frequency spectrum (F0).
-
-#### Harmonics
-- **Definition**: Multiples of the fundamental frequency.
-- **How to Identify**: Look for peaks at integer multiples of the fundamental frequency.
-
-#### Noise
-- **Definition**: Random signals spread across frequencies, often present above 10 kHz.
-- **How to Identify**: Broad, low-amplitude components in the higher frequency range.
-
-#### Tuning Peak Detection (`height` parameter)
-- The `height` parameter in peak detection adjusts the minimum threshold for peak magnitude:
-  - **Low height** detects more peaks, including minor fluctuations (potential noise).
-  - **High height** detects only prominent peaks but may miss some real signals.
-  - Recommended to fine-tune this based on the signal being analyzed.
+- **Fundamental Frequency**: Identified the fundamental frequency as **167.9 Hz** from the frequency domain plot. 
+- **Harmonics**: Found harmonics at **335.8 Hz** and **503.7 Hz**. Higher harmonics had significantly lower amplitudes.
+- **Noise**: Frequencies above **10kHz** were identified as containing noise, particularly in the higher harmonics and sibilants.
 
 ### Task 3: Improving Voice Quality
-- To be completed...
+- **Objective**: Enhance the audio quality by reducing noise while preserving the essential voice frequencies.
+- **High-Pass Filter**: Applied a high-pass filter with a cutoff frequency of **1500 Hz**, but it reduced both noise and some of the voice, making it sound less natural.
+- **Band-Pass Filter**: Applied a band-pass filter with a low cut of **300 Hz** and a high cut of **3000 Hz**. This filter preserved the fundamental frequency and harmonics, while reducing both low-frequency and high-frequency noise. The result was a clearer voice with less distortion compared to the high-pass filter.
+
+#### Key Observations:
+- The **band-pass filter** produced better results than the high-pass filter because it preserved more of the natural voice frequencies while still reducing unwanted noise.
+- Fine-tuning the cutoff frequencies was crucial for maintaining the balance between noise reduction and voice clarity.
 
 ### Task 4: Aural Exciter Simulation
-- To be completed...
+- **Next Step**: Simulate an aural exciter by applying a non-linearity function like `tanh()` to enhance the voice and combine the result with the original audio signal.
+
