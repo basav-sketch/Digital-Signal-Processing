@@ -48,6 +48,9 @@ from scipy.signal import find_peaks
 fft_data = np.fft.fft(audio_data)
 fft_freq = np.fft.fftfreq(len(fft_data), d=1/sampling_rate)
 
+# Get the magnitude of the FFT
+magnitude = np.abs(fft_data)
+
 # Only keep positive frequencies
 positive_frequencies = fft_freq[:len(fft_freq)//2]
 positive_magnitude = np.abs(fft_data[:len(fft_data)//2])
@@ -80,6 +83,36 @@ plt.show()
 # Print the identified peak frequencies
 print("Peak Frequencies (Hz):", positive_frequencies[peaks])
 
+# Mark peaks for fundamental frequency and harmonics
+# Assuming F0 = 167.6 Hz
+fundamental_freq = 167.6  # Known from previous analysis
+harmonics = [fundamental_freq * i for i in range(1, 6)]  # First five harmonics
+
+# Find the closest frequency indices for F0 and harmonics
+def find_nearest_index(array, value):
+    idx = (np.abs(array - value)).argmin()
+    return idx
+
+peaks = [find_nearest_index(positive_frequencies, harmonic) for harmonic in harmonics]
+
+# Plot the frequency spectrum and mark peaks
+plt.figure(figsize=(10, 6))
+plt.plot(positive_frequencies, 20 * np.log10(positive_magnitude), label="Frequency Spectrum")
+plt.scatter(positive_frequencies[peaks], 20 * np.log10(positive_magnitude[peaks]), color='red', label="Peaks", zorder=5)
+for i, harmonic in enumerate(harmonics):
+    plt.text(positive_frequencies[peaks[i]], 20 * np.log10(positive_magnitude[peaks[i]]) + 2, f"{harmonic:.1f} Hz", color="red")
+
+# Mark noise region above 10 kHz
+plt.axvspan(10000, max(positive_frequencies), color='gray', alpha=0.3, label="Noise (> 10kHz)")
+
+plt.xlim(0, 20000)  # Show full spectrum up to 20 kHz
+plt.xlabel('Frequency [Hz]')
+plt.ylabel('Amplitude [dB]')
+plt.title('Fundamental Frequency, Harmonics, and Noise')
+plt.legend()
+plt.grid(True)
+plt.show()
+
 # Compute the spectrogram (frequency vs. time)
 frequencies, times, Sxx = spectrogram(audio_data, fs=sampling_rate)
 
@@ -93,7 +126,7 @@ plt.ylabel('Frequency [Hz]')
 plt.title('Spectrogram (Frequency vs. Time)')
 plt.show()
 
-# TASK - 3 - IMPROVING VOICE QUALITY
+# TASK - 3 - IMPROVING VOICE QUALITY (band-pass till 3kHz and the use forurier transform for above 3kHz)
 
 # Design a band-pass filter 
 def butter_bandpass(lowcut, highcut, fs, order=5):
@@ -134,6 +167,27 @@ plt.show()
 output_bandpass_path = "/home/basav/DSP/Digital-Signal-Processing/filtered_bandpass_audio.wav"
 write(output_bandpass_path, sampling_rate, np.int16(filtered_audio_data_bandpass * 32767))  # Convert back to 16-bit PCM
 
-
 # You can now play the audio using any media player
 print("Filtered audio saved as 'filtered_bandpass_audio.wav'")
+
+# Perform FFT on the original audio signal
+fft_data = np.fft.fft(audio_data)
+fft_freq = np.fft.fftfreq(len(fft_data), d=1/sampling_rate)
+
+# Zero out frequencies below 3kHz
+fft_data[np.abs(fft_freq) < 3000] = 0
+
+# Optionally boost frequencies above 3kHz
+boost_factor = 5  # Adjust this factor as needed
+fft_data[np.abs(fft_freq) >= 3000] *= boost_factor
+
+# Apply Inverse FFT to get the modified audio signal back
+enhanced_audio_data = np.fft.ifft(fft_data)
+
+# Normalize and save the enhanced audio
+enhanced_audio_data = enhanced_audio_data.real / np.max(np.abs(enhanced_audio_data), axis=0)  # Keep real part
+
+output_exciter_path = "/home/basav/DSP/Digital-Signal-Processing/enhanced_audio_fft.wav"
+write(output_exciter_path, sampling_rate, np.int16(enhanced_audio_data * 32767))  # Convert back to 16-bit PCM
+
+print("Enhanced audio saved as 'enhanced_audio_fft.wav'")
