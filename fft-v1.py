@@ -143,7 +143,7 @@ def apply_bandpass_filter(data, lowcut,highcut, fs, order=5):
     return filtered_data
 
 # Apply the filter to the audio signal
-lowcut = 300.0  # Low cut-off frequency in Hz
+lowcut = 85.0  # Low cut-off frequency in Hz
 highcut = 3000.0  # High cut-off frequency in Hz
 filtered_audio_data_bandpass = apply_bandpass_filter(audio_data, lowcut, highcut, sampling_rate)
 
