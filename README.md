@@ -38,7 +38,7 @@ The third assignment explored **Infinite Impulse Response (IIR)** filters, which
 To run the code for any of the assignments, follow these steps:
 1. Clone the repository:
    ```
-   git clone https://github.com/username/Digital-Signal-Processing.git
+   git clone https://github.com/basav-sketch/Digital-Signal-Processing.git
    ```
 2. Navigate to the desired assignment folder.
 3. Run the Python scripts using Python 3.
