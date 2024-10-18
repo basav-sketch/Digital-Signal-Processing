@@ -62,7 +62,7 @@ harmonics_range_start = 2 * fundamental_freq
 harmonics_range_end = 5 * fundamental_freq
 plt.axvspan(harmonics_range_start, harmonics_range_end, color='yellow', alpha=0.3, label='Harmonics Range')
 
-# Mark the harmonics in the harmonics range
+# Mark the harmonics in the harmonics range (2x to 5x)
 harmonics_freqs = [fundamental_freq * i for i in range(2, 6)]
 for harmonic_freq in harmonics_freqs:
     if harmonics_range_start <= harmonic_freq <= harmonics_range_end:
