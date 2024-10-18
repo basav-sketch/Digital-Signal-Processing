@@ -5,17 +5,17 @@ from scipy.io.wavfile import write
 
 # TASK - 1 - LOADING THE WAV FILE AND PLOTTING GRAPHS
 
-# Step 1: Load the original audio file
+# Load the original audio file
 file_path = "Lab 1 test 2.wav"
 sampling_rate, audio_data = wavfile.read(file_path)
 
-# Step 2: Normalize the audio data to be between -1 and +1
+# Normalize the audio data to be between -1 and +1
 audio_data = audio_data / np.max(np.abs(audio_data), axis=0)
 
-# Step 3: Create a time axis
+# Create a time axis
 time = np.linspace(0, len(audio_data) / sampling_rate, num=len(audio_data))
 
-# Step 4: Plot original audio signal in time domain
+# Plot original audio signal in time domain
 plt.figure(figsize=(10, 6))
 plt.plot(time, audio_data)
 plt.xlabel('Time (seconds)')
@@ -77,27 +77,29 @@ plt.legend()
 plt.savefig('frequency_domain_plot.svg', format='svg')
 plt.show()
 
-# Step 4: Isolate the first half second (where the noise is present)
+# TASK - 3 - Improving the quality of the voice
+
+# Isolate the first half second (where the noise is present)
 half_second_samples = int(0.5 * sampling_rate)
 first_half_second = audio_data[:half_second_samples]
 
-# Step 5: Perform FFT on the first half second
+# Perform FFT on the first half second
 fft_first_half = np.fft.fft(first_half_second)
 
-# Step 6: Set the frequency components of the noise to zero
+# Set the frequency components of the noise to zero
 fft_first_half_cleaned = np.zeros_like(fft_first_half)  # Zero out all frequency components
 
-# Step 7: Perform Inverse FFT to get back the time-domain signal (cleaned-up first half second)
+# Perform Inverse FFT to get back the time-domain signal (cleaned-up first half second)
 cleaned_first_half_second = np.real(np.fft.ifft(fft_first_half_cleaned))
 
-# Step 8: Reconstruct the full audio by combining cleaned first half with the rest of the audio
+# Reconstruct the full audio by combining cleaned first half with the rest of the audio
 cleaned_audio_data = np.concatenate((cleaned_first_half_second, audio_data[half_second_samples:]))
 
-# Step 9: Perform FFT on the cleaned full audio
+# Perform FFT on the cleaned full audio
 fft_data_cleaned = np.fft.fft(cleaned_audio_data)
 fft_freq_cleaned = np.fft.fftfreq(len(fft_data_cleaned), d=1/sampling_rate)
 
-# Step 10: Custom smoother filter for frequencies between 3kHz and 10kHz with smooth transition
+# Custom smoother filter for frequencies between 3kHz and 10kHz with smooth transition
 def smooth_transition_filter(fft_freq, cutoff_low, cutoff_high):
     mask = np.ones_like(fft_freq)  # Start by keeping all frequencies
     transition_band = (np.abs(fft_freq) > cutoff_low) & (np.abs(fft_freq) <= cutoff_high)
@@ -110,32 +112,34 @@ cutoff_high = 10000  # 10kHz
 filter_mask_cleaned = smooth_transition_filter(fft_freq_cleaned, cutoff_low, cutoff_high)
 filtered_fft_data_cleaned = fft_data_cleaned * filter_mask_cleaned
 
-# Step 11: Apply Aural Exciter using a non-linearity (tanh) in the 3kHz to 10kHz range
+# TASK - 4 - Voice Enhancement Using Aural Exciter
+
+# Apply Aural Exciter using a non-linearity (tanh) in the 3kHz to 10kHz range
 def apply_aural_exciter(fft_data, fft_freq, exciter_range=(3000, 10000)):
     exciter_band = (np.abs(fft_freq) >= exciter_range[0]) & (np.abs(fft_freq) <= exciter_range[1])
     excited_fft_data = np.zeros_like(fft_data)  # Start with zeros
-    excited_fft_data[exciter_band] = np.tanh(fft_data[exciter_band])  # Apply non-linearity only to this band
+    excited_fft_data[exciter_band] = np.tanh(fft_data[exciter_band])  # Applying non-linearity only to this band
     return excited_fft_data
 
 # Apply the exciter to the smooth-filtered FFT data (only between 3kHz and 10kHz)
 exciter_range = (3000, 10000)  # Frequency range for the exciter
 excited_fft_data = apply_aural_exciter(filtered_fft_data_cleaned, fft_freq_cleaned, exciter_range)
 
-# Step 12: Add the excited frequencies back to the original signal
+# Add the excited frequencies back to the original signal
 scaling_factor = 0.3  # Scale the excited data to add a smaller amount to the original
 enhanced_fft_data = fft_data_cleaned + scaling_factor * excited_fft_data  # Add back the enhanced frequencies
 
-# Optional: limit the frequency band post-excitation (but ensure frequencies up to 10kHz are preserved)
+# limit the frequency band post-excitation (but ensure frequencies up to 10kHz are preserved)
 def limit_frequency_band(fft_data, fft_freq, limit_range=(85, 10000)):
     limited_fft_data = np.copy(fft_data)
     limit_band = (np.abs(fft_freq) > limit_range[1])  # Only limit frequencies above 10kHz
     limited_fft_data[limit_band] = 0  # Zero out frequencies above 10kHz
     return limited_fft_data
 
-# Apply frequency limitation if needed (limiting frequencies above 10kHz)
+# Limiting frequencies above 10kHz
 limited_enhanced_fft_data = limit_frequency_band(enhanced_fft_data, fft_freq_cleaned, limit_range=(85, 10000))
 
-# Step 13: Inverse FFT to return to time domain after excitation and enhancement
+# Inverse FFT to return to time domain after excitation and enhancement
 final_enhanced_audio_data = np.fft.ifft(limited_enhanced_fft_data)
 final_enhanced_audio_data_real = np.real(final_enhanced_audio_data)
 
