@@ -7,7 +7,7 @@ from scipy.io.wavfile import write
 file_path = "/home/basav/DSP/Digital-Signal-Processing/FINAL_cleaned_audio.wav"
 sampling_rate, cleaned_audio_data = wavfile.read(file_path)
 
-# Step 1: Isolate high frequencies (e.g., above 3 kHz)
+# Step 1: Isolate high frequencies (above 3 kHz)
 def isolate_high_frequencies(signal, fft_freq, cutoff=3000):
     fft_signal = np.fft.fft(signal)
     high_freq_indices = np.abs(fft_freq) > cutoff
