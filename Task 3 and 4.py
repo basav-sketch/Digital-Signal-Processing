@@ -55,7 +55,7 @@ excited_fft_data = apply_aural_exciter(filtered_fft_data_cleaned, fft_freq_clean
 scaling_factor = 0.3  # Scale the excited data to add a smaller amount to the original
 enhanced_fft_data = fft_data_cleaned + scaling_factor * excited_fft_data  # Add back the enhanced frequencies
 
-# Optional: limit the frequency band post-excitation (but ensure frequencies up to 10kHz are preserved)
+# limit the frequency band post-excitation (but ensure frequencies up to 10kHz are preserved)
 def limit_frequency_band(fft_data, fft_freq, limit_range=(85, 10000)):
     limited_fft_data = np.copy(fft_data)
     limit_band = (np.abs(fft_freq) > limit_range[1])  # Only limit frequencies above 10kHz
