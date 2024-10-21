@@ -119,8 +119,8 @@ def smooth_transition_filter(fft_freq, cutoff_low, cutoff_high):
     return mask
 
 # Apply the smooth filter (for frequencies between 3kHz and 10kHz)
-cutoff_low = 3000  # 3kHz
-cutoff_high = 10000  # 10kHz
+cutoff_low = 500  # 3kHz
+cutoff_high = 1000  # 10kHz
 filter_mask_cleaned = smooth_transition_filter(fft_freq_cleaned, cutoff_low, cutoff_high)
 filtered_fft_data_cleaned = fft_data_cleaned * filter_mask_cleaned
 
