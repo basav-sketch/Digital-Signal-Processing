@@ -7,9 +7,9 @@
 - **Plotted** the audio signals in both the time domain (amplitude vs. time) and the frequency domain (frequency vs. amplitude in dB).
 
 ### Task 2: Analyzing the Frequency Spectrum
-- **Fundamental Frequency**: Identified the fundamental frequency as **167.9 Hz** from the frequency domain plot. 
-- **Harmonics**: Found harmonics at **335.8 Hz** and **503.7 Hz**. Higher harmonics had significantly lower amplitudes.
-- **Noise**: Frequencies above **10kHz** were identified as containing noise, particularly in the higher harmonics and sibilants.
+- **Fundamental Frequency**: Identified the fundamental frequency of the voice, which was determined by finding the first prominent peak in the range of 85 Hz to 255 Hz.
+- **Harmonics**: Marked the harmonic frequencies, which are integer multiples of the fundamental frequency.
+- **Noise Bands**: High-frequency noise bands (> 8 kHz) and low-frequency noise (< 85 Hz) were identified and marked on the frequency plot.
 
 ### Task 3: Voice Quality Improvement
 - **Objective**: Improve the quality of the voice by manipulating the frequency bands above 3 kHz.
