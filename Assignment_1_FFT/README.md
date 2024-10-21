@@ -11,31 +11,72 @@
 - **Harmonics**: Found harmonics at **335.8 Hz** and **503.7 Hz**. Higher harmonics had significantly lower amplitudes.
 - **Noise**: Frequencies above **10kHz** were identified as containing noise, particularly in the higher harmonics and sibilants.
 
-### Task 3: Improving Voice Quality
-In this task, we aimed to enhance the quality of the voice recorded in the audio file by manually designing a filter and using Fourier Transform techniques.
+### Task 3: Voice Quality Improvement
+- **Objective**: Improve the quality of the voice by manipulating the frequency bands above 3 kHz.
+- **Method**: 
+  - Removed the first 0.5 seconds of noise from the audio.
+  - Applied a custom smoother filter to the frequency components between 3 kHz and 10 kHz.
+  - Manipulated these bands to enhance clarity and richness, making the voice sound perceptually more pleasant and interesting.
+- **Considerations**: Compared low-pass and band-pass filters before deciding on a custom solution to comply with assignment requirements. The band-pass filter was most effective, but we could not use it directly, so we developed our own smoother filter.
 
-### Manual High-Pass Filter
-- **Custom Filter Design**: We created a manual high-pass filter to remove frequencies below 3kHz and retain the essential vocal frequencies.
-- **Boosting Frequencies**: Frequencies between 1kHz and 3kHz were boosted to enhance vocal clarity.
-
-#### Key Steps:
-1. **Fourier Transform**: Applied to the original audio signal to analyze the frequency components.
-2. **Manual Filtering**: Frequencies below 3kHz were set to zero to eliminate unwanted noise.
-3. **Enhancement**: Frequencies in the range of 1kHz to 3kHz were amplified to improve clarity.
-4. **Inverse Fourier Transform**: Converted the filtered data back to the time domain.
-5. **Output**: Saved the enhanced audio as `enhanced_audio_manual_highpass.wav`.
-
-## Task 4: Aural Exciter Simulation
-This task involved simulating an aural exciter effect by applying non-linearity to specific frequency ranges.
-
-### Key Steps:
-1. **High-Frequency Isolation**: Isolated frequencies between 3kHz and 10kHz for enhancement.
-2. **Non-Linearity Application**: The `tanh` function was applied to enhance the presence of high frequencies.
-3. **Combining Signals**: The enhanced high-frequency signal was combined with the original audio signal.
-4. **Output**: Saved the resulting audio with the aural exciter effect as `aural_exciter_effect.wav`.
+### Task 4: Voice Enhancement with Aural Exciter
+- **Objective**: Enhance the vocal quality by adding brightness and vibrancy through harmonic excitation.
+- **Method**: 
+  - Used the hyperbolic tangent (`tanh`) function to add a small amount of harmonic distortion to frequency components between 3 kHz and 10 kHz.
+  - The excited components were scaled and added back to the original signal.
+  - Limited the frequencies to below 10 kHz to avoid unwanted noise.
+  - Achieved a balanced, vibrant sound without artificial distortion.
+- **Challenges**: Determining the optimal non-linearity and scaling factor for enhancement without compromising natural vocal quality.
 
 ### Results:
 The audio quality was significantly improved through careful filtering and enhancement techniques, making the voice sound clearer and more vibrant.
 
 ### Future Work:
 Further tuning of filter parameters and additional enhancements could be explored to refine audio quality even more.
+
+## Usage
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/basav-sketch/Digital-Signal-Processing.git
+   cd Digital-Signal-Processing/assignment1
+   ```
+
+2. **Run the Python Scripts**:
+   - Make sure Python 3 and required libraries (`numpy`, `matplotlib`, etc.) are installed.
+   - Run each script from the terminal as follows:
+     ```bash
+     python3 taskonetwo.py
+     python3 taskthree.py
+     python3 taskfour.py
+     ```
+
+3. **View the Output**:
+   - Plots will be displayed for Tasks 1, 2, and 4.
+   - Enhanced audio files (`pleasant_and_interesting.wav` and `exited.wav`) will be generated and saved in the working directory.
+
+## Requirements
+- **Python 3.x**
+- **NumPy** and **Matplotlib** libraries
+- **SciPy** for reading and writing WAV files
+- **WAV File Format**: All audio files must be in WAV 16-bit format.
+
+## Important Notes
+- The code is designed to be platform-independent and tested in Linux (Ubuntu).
+- Absolute paths have been avoided to ensure portability.
+- No high-level signal processing/filtering commands were used apart from FFT and IFFT.
+- Ensure plots (`plt.show()`) are displayed correctly, as missing this step may lead to incomplete outputs.
+
+## Future Work
+- **Assignment 2 (FIR Filters)**: Explore FIR filtering for signal manipulation.
+- **Assignment 3 (IIR Filters)**: Apply IIR filters to further analyze and process audio signals.
+
+## GitHub Repository
+The full code for this assignment, as well as future assignments for FIR and IIR filters, can be found in the GitHub repository: [DSP Lab Assignments](https://github.com/basav-sketch/Digital-Signal-Processing/tree/main).
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgements
+- **Professor - Rami and Scott**: For guidance throughout the course.
+- **Teammates**: For valuable contribution, feedback and discussions during the development process.
