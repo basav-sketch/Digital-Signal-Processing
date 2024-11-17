@@ -1,6 +1,6 @@
 # Digital Signal Processing (DSP) Assignments
 
-Welcome to the **Digital-Signal-Processing** repository! This repository contains my work for the **DSP** course, where I implemented solutions for the **FFT** assignment related to signal processing. The focus is on understanding and applying fundamental concepts to enhance, filter, and manipulate signals.
+Welcome to the **Digital-Signal-Processing** repository! This repository contains my work for the **DSP** course, where I implemented solutions for assignments related to signal processing. The focus is on understanding and applying fundamental concepts to enhance, filter, and manipulate signals.
 
 ## Assignments Overview
 
@@ -10,54 +10,63 @@ In this assignment, I utilized the Fast Fourier Transform (FFT) to analyze the f
 - Identifying key features, such as fundamental frequencies and harmonics.
 - Improving the quality of the audio signal through frequency domain manipulation, focusing on enhancing the clarity of the voice.
 
-### Future Assignments
+### Assignment 2: Finite Impulse Response (FIR) Filter
+The second assignment focused on designing and implementing **Finite Impulse Response (FIR)** filters to process ECG signals. Highlights included:
+- **Task 1**: Designing combined high-pass and band-stop FIR filters using the sinc function and applying a Blackman window.
+- **Task 2**: Applying the designed FIR filter to noisy ECG signals and comparing the results with the clean ECG signal.
+- **Task 3**: Using adaptive LMS filtering for noise removal and comparing the FIR and LMS-filtered signals.
+- **Task 4**: Implementing heartbeat detection using matched filtering and calculating the momentary heart rate (BPM).
 
-#### Assignment 2: Finite Impulse Response (FIR) Filter
-The second assignment will focus on designing and implementing a **Finite Impulse Response (FIR)** filter to process signals. Planned highlights include:
-- Designing low-pass, high-pass, and band-pass FIR filters.
-- Applying these filters to audio signals to observe their effects on specific frequency components.
-- Evaluating the impact of FIR filters on the quality and characteristics of the filtered audio.
+Each task included detailed visualization and analysis in both time and frequency domains. 
 
-#### Assignment 3: Infinite Impulse Response (IIR) Filter
-The third assignment will explore **Infinite Impulse Response (IIR)** filters, which are more computationally efficient compared to FIR filters. Planned tasks include:
-- Designing IIR filters to achieve desired signal processing effects.
-- Comparing the behavior of IIR and FIR filters on the same audio input.
-- Demonstrating the advantages and trade-offs of IIR filters in real-time signal processing scenarios.
+### Moodle Quiz: Infinite Impulse Response (IIR) Filters
+Instead of Assignment 3, I completed a **Moodle Quiz** focused on **Infinite Impulse Response (IIR)** filters. The quiz covered:
+- Theoretical aspects of IIR filters, including stability, poles, and zeros.
+- Comparison between IIR and FIR filters.
+- Real-time applications of IIR filters and their advantages in specific scenarios.
 
 ## Repository Structure
 - **Assignment_1_FFT/**: Contains the code, plots, and audio files used for the FFT analysis, as well as the report summarizing the results.
-- **Assignment_2_FIR/**: Will include the FIR filter design, implementation scripts, and resulting audio files (planned).
-- **Assignment_3_IIR/**: Will contain the IIR filter implementation, comparison scripts, and results (planned).
+- **Assignment_2_FIR/**: Includes FIR filter design, implementation scripts, ECG data files, and resulting plots for all tasks.
 - **README.md**: This document, providing an overview of the repository.
 
 ## Technologies Used
 - **Python**: Main programming language for all assignments.
-- **NumPy**: Used for numerical computations and FFT implementation.
-- **SciPy**: Will be utilized for FIR and IIR filter design and implementation.
-- **Matplotlib**: Employed for visualizing the signals in both time and frequency domains.
+- **NumPy**: Used for numerical computations, including FFT and FIR filter implementation.
+- **SciPy**: Employed for advanced signal processing tasks and filter design.
+- **Matplotlib**: Used for visualizing signals in both time and frequency domains.
 
 ## Getting Started
 To run the code for any of the assignments, follow these steps:
 1. Clone the repository:
-   ```
+   ```bash
    git clone https://github.com/basav-sketch/Digital-Signal-Processing.git
    ```
 2. Navigate to the desired assignment folder.
 3. Run the Python scripts using Python 3.
 
 Ensure you have the required Python libraries installed:
-```
+```bash
 pip install numpy scipy matplotlib
 ```
 
 ## Results and Discussion
-The FFT assignment folder contains detailed plots, explanations, and the processed audio files demonstrating the effects of the applied DSP techniques.
+
+### **Assignment 1 (FFT)**
+- Visualized the time and frequency domain of an audio signal.
+- Enhanced the clarity of the signal by removing unwanted frequency components.
+- Demonstrated the significance of FFT in audio signal processing.
+
+### **Assignment 2 (FIR Filtering and Heartbeat Detection)**
+- Designed and implemented FIR filters for ECG signal processing.
+- Demonstrated the effectiveness of FIR filters in reducing noise in ECG data.
+- Compared FIR and LMS filtering techniques, highlighting their strengths and trade-offs.
+- Implemented a matched filter for heartbeat detection and calculated momentary heart rates (BPM).
 
 ## Future Work
-- Complete the FIR and IIR filter assignments.
-- Explore advanced filter design techniques, such as adaptive filters.
-- Implement real-time DSP applications using FIR and IIR filters.
-- Utilize machine learning to automatically determine optimal filter parameters based on signal characteristics.
+- Extend FIR and LMS filtering techniques to other biomedical signals.
+- Explore real-time DSP applications using adaptive filters.
+- Experiment with machine learning for automatic filter design and noise classification.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
