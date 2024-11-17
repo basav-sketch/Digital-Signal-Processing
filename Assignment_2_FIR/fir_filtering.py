@@ -124,6 +124,7 @@ plt.title("FIR_Filtered Noisy ECG Signal")
 plt.grid()
 plt.legend()
 plt.tight_layout()
+plt.savefig("original and filtered noisy ECG signals", format="svg")
 plt.show()
 
 # Plot the original and filtered clean ECG signals
@@ -143,4 +144,5 @@ plt.title("FIR_Filtered Clean ECG Signal")
 plt.grid()
 plt.legend()
 plt.tight_layout()
+plt.savefig("original and filtered clean ECG signals", format="svg")
 plt.show()

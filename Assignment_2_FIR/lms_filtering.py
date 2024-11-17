@@ -108,10 +108,6 @@ def plot_fir_lms_comparison(original, fir_filtered, lms_filtered, title_prefix, 
     plt.savefig(f"{filename_prefix}.svg", format="svg")
     plt.show()
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a561296 (task 3 (LMS filtering))
 def plot_single_heartbeat(ecg_signal, fs, title, filename, window=0.5):
     """
     Plot a zoomed-in view of a single heartbeat around an R-peak.
@@ -137,19 +133,11 @@ def plot_single_heartbeat(ecg_signal, fs, title, filename, window=0.5):
 
 # Plot for Noisy ECG
 plot_fir_lms_comparison(noisy_ecg, fir_filtered_noisy, lms_filtered_noisy, "Noisy ECG Signal", "Comparison_Noisy_ECG")
-<<<<<<< HEAD
 plot_single_heartbeat(fir_filtered_noisy, fs, "Zoomed-in ECG Traces of One Heartbeat (Noisy ECG)", "Zoomed_Heartbeat_Noisy_ECG.svg")
 
 # Plot for Clean ECG
 plot_fir_lms_comparison(clean_ecg, fir_filtered_clean, lms_filtered_clean, "Clean ECG Signal", "Comparison_Clean_ECG")
-plot_single_heartbeat(fir_filtered_clean, fs, "Zoomed-in ECG Traces of One Heartbeat (Clean ECG)", "Zoomed_Heartbeat_Clean_ECG.svg")
-=======
-plot_single_heartbeat(fir_filtered_noisy, fs, "Zoomed-in ECG Traces of One Heartbeat (FIR_filtered Noisy ECG)", "Zoomed_Heartbeat_Noisy_ECG.svg")
-
-# Plot for Clean ECG
-plot_fir_lms_comparison(clean_ecg, fir_filtered_clean, lms_filtered_clean, "Clean ECG Signal", "Comparison_Clean_ECG")
 plot_single_heartbeat(fir_filtered_clean, fs, "Zoomed-in ECG Traces of One Heartbeat (FIR_filtered Clean ECG)", "Zoomed_Heartbeat_Clean_ECG.svg")
->>>>>>> a561296 (task 3 (LMS filtering))
 
 # Frequency Domain Plot
 def plot_frequency_domain(fir_filtered, lms_filtered, fs, title_prefix, filename_prefix):
